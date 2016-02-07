@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Test on Your site title</title>
+    <title>Test on Nyatsui&#39;s Memorandums</title>
     <link>https://nyatsui.github.io/tags/test/</link>
-    <description>Recent content in Test on Your site title</description>
+    <description>Recent content in Test on Nyatsui&#39;s Memorandums</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 07 Feb 2016 00:19:18 +0900</lastBuildDate>
     <atom:link href="https://nyatsui.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
