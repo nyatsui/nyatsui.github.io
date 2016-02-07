@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Nyatsui&#39;s Memorandums">
+    <meta name="description" content="cuファイルとcppファイルの混在するプログラムのCMakeコンパイル">
     <meta name="author" content="Nyatsui">
 
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <title>Nyatsui&#39;s Memorandums</title>
+    <title>cuファイルとcppファイルの混在するプログラムのCMakeコンパイル &middot; Nyatsui&#39;s Memorandums</title>
 
    	
     
@@ -28,7 +28,7 @@
     <script src="https://nyatsui.github.io/js/bootstrap.min-3.3.5.js"></script>
 
     
-    <link href="https://nyatsui.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Nyatsui&#39;s Memorandums" />
+    <link href="" rel="alternate" type="application/rss+xml" title="Nyatsui&#39;s Memorandums" />
 </head>
 <body lang="en">
     
@@ -51,38 +51,29 @@
 
 
 
-    <div class="container">
-        
-        
-            	
-		
-			<div class="row">
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<h3>cuファイルとcppファイルの混在するプログラムのCMakeコンパイル</h3>
+				<span class="label label-primary">07.02.2016</span> in 
+				 using tags
 				
-				<div class="col-md-offset-1 col-md-10">
-					<h3><a href="https://nyatsui.github.io/blog/2016/02/07/cu%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8cpp%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%B7%B7%E5%9C%A8%E3%81%99%E3%82%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AEcmake%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/">cuファイルとcppファイルの混在するプログラムのCMakeコンパイル</a></h3>
-						<small><span class="label label-primary">
-							
-								07.02.2016
-							</span>&nbsp;in
-							 using tags
-							
-								
-							<a href="/tags/c">C&#43;&#43;</a>
-						
-								 , 
-							<a href="/tags/cuda">CUDA</a>
-						
-								 , 
-							<a href="/tags/cmake">CMake</a>
-						
-					</small>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<br>
 					
-						
+					<a href="/tags/c">C&#43;&#43;</a>
+				
+					 , 
+					<a href="/tags/cuda">CUDA</a>
+				
+					 , 
+					<a href="/tags/cmake">CMake</a>
+				
+			</small>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<br>
+			
 
 <p>CUDAの.cuファイルと.cppファイルが混在しているプロジェクトのCMakeファイルの書き方についてまとめます．<br />
 これまでは，Macでnsightを使ってコードをビルドしていましたが他の環境でもビルドできるようにCMakeを書いてみようと思ってやってみたところ色々ハマったのでやり方をまとめます．</p>
@@ -147,75 +138,15 @@ cuda_add_executable(Project ${cpp_srcs} ${cuda_srcs} ${h_incs} ${cuda_incs})
 CUDA_ADD_CUBLAS_TO_TARGET(Project)
 </code></pre>
 
-					
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<hr>
-				</div>
-			</div>
-		
-	
-
-        
-            	
-		
-			<div class="row">
-				
-				<div class="col-md-offset-1 col-md-10">
-					<h3><a href="https://nyatsui.github.io/blog/2016/02/07/hello-world/">Hello World</a></h3>
-						<small><span class="label label-primary">
-							
-								07.02.2016
-							</span>&nbsp;in
-							 using tags
-							
-								
-							<a href="/tags/test">test</a>
-						
-								 , 
-							<a href="/tags/"></a>
-						
-					</small>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<br>
-					
-						<p>Hello World!!!</p>
-
-<p>こんにちは</p>
-
-					
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<hr>
-				</div>
-			</div>
-		
-	
-
-        
+		</div>
 	</div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-center">
-                    
-    
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <hr>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<hr>
+		</div>
+	</div>
+</div>
+
     <div class="container">
         <div class="row col-md-12">
             <footer>
@@ -239,9 +170,6 @@ CUDA_ADD_CUBLAS_TO_TARGET(Project)
                     
                     
                     
-                    
-                        <a href="https://nyatsui.github.io/index.xml" target="_blank">
-                        <i class="fa fa-rss-square fa-2x"></i></a>
                     
                 </div>
             </footer>

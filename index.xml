@@ -5,8 +5,85 @@
     <link>https://nyatsui.github.io/</link>
     <description>Recent content on Nyatsui&#39;s Memorandums</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Feb 2016 00:19:18 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 07 Feb 2016 15:19:15 +0900</lastBuildDate>
     <atom:link href="https://nyatsui.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>cuファイルとcppファイルの混在するプログラムのCMakeコンパイル</title>
+            <link>https://nyatsui.github.io/blog/2016/02/07/cu%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8cpp%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%B7%B7%E5%9C%A8%E3%81%99%E3%82%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AEcmake%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/</link>
+            <pubDate>Sun, 07 Feb 2016 15:19:15 +0900</pubDate>
+            
+            <guid>https://nyatsui.github.io/blog/2016/02/07/cu%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%A8cpp%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%B7%B7%E5%9C%A8%E3%81%99%E3%82%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AEcmake%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB/</guid>
+            <description>
+
+&lt;p&gt;CUDAの.cuファイルと.cppファイルが混在しているプロジェクトのCMakeファイルの書き方についてまとめます．&lt;br /&gt;
+これまでは，Macでnsightを使ってコードをビルドしていましたが他の環境でもビルドできるようにCMakeを書いてみようと思ってやってみたところ色々ハマったのでやり方をまとめます．&lt;/p&gt;
+
+&lt;h2 id=&#34;環境:cbddd668d54a79de8192e1e67a3a2a27&#34;&gt;・環境&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;環境とソースコードのディレクトリ構造は次のようになっています．&lt;/p&gt;
+
+&lt;p&gt;OS: OS X 10.9.5&lt;br /&gt;
+CUDA version: 7.5&lt;br /&gt;
+CMake version: 3.2.3&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ディレクトリ構造&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;    - ProjectDir  
+     ├ CMakeList.txt
+     └ src
+        ├ ~.cpp
+        ├ ~.h
+        ├ ~.cu
+        └ ~.cuh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cmakelistの書き方:cbddd668d54a79de8192e1e67a3a2a27&#34;&gt;・CMakeListの書き方&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;CMakeListは次のようになりました．&lt;br /&gt;
+オプションの渡し方がこれで正しく渡せているかはわかりませんが，なんとかビルドができるようになりました．&lt;br /&gt;
+C++のコンパイラに&amp;rdquo;-std=c++11&amp;rdquo;のオプションが上手く渡せずに苦労しました．&amp;rdquo;CUDA_SEPARABLE_COMPILATION&amp;rdquo;をONにして&amp;rdquo;CMAKE_CXX_FLAGS&amp;rdquo;にオプションをsetすることで渡せるみたいです．&lt;br /&gt;
+&amp;ldquo;CUDA_NVCC_FLAGS&amp;rdquo;と&amp;rdquo;CMAKE_CXX_FLAGS&amp;rdquo;の設定の仕方が違うのですが，どちらかに統一するとビルド時にオプションが渡せていないようなエラーが出てしまいました．（ここらへんがまだ怪しいです．）
+cuBLASを使っている場合は&amp;rdquo;cuda_add_executable&amp;rdquo;の後に&amp;rdquo;CUDA_ADD_CUBLAS_TO_TARGET&amp;rdquo;が必要です．&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CMakeList.txt&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;project (Project)
+cmake_minimum_required(VERSION 2.8)
+find_package(CUDA REQUIRED)
+
+file(GLOB_RECURSE cpp_srcs src/*.cpp)
+file(GLOB_RECURSE h_incs src/*.h)
+file(GLOB_RECURSE cuda_srcs src/*.cu)
+file(GLOB_RECURSE cuda_incs src/*.cuh)
+
+include_directories(
+  src
+  /usr/local/cuda/include
+)
+
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -std=c++11 -gencode arch=compute_30,code=sm_30)
+set(CUDA_SEPARABLE_COMPILATION ON)
+set(CUDA_PROPAGATE_HOST_FLAGS OFF)
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS}; &amp;quot;-std=c++11 -O3&amp;quot;)
+set(CUDA_HOST_COMPILER clang++)
+cuda_add_executable(Project ${cpp_srcs} ${cuda_srcs} ${h_incs} ${cuda_incs})
+CUDA_ADD_CUBLAS_TO_TARGET(Project)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+          </item>
+        
+      
     
       
         
