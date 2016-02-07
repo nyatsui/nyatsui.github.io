@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your site title</title>
-    <link>http://example.com/</link>
-    <description>Recent content on Your site title</description>
+    <title>Test on Your site title</title>
+    <link>http://example.com/tags/test/</link>
+    <description>Recent content in Test on Your site title</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 07 Feb 2016 00:19:18 +0900</lastBuildDate>
-    <atom:link href="http://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://example.com/tags/test/index.xml" rel="self" type="application/rss+xml" />
     
       
         
